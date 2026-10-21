@@ -1,3 +1,5 @@
+> Docker: dùng Dockerfile/nginx.conf trong repo này cùng docker-compose.yml ở repo backend. Hướng dẫn: [Docker, CI và Render](https://github.com/daohuynh05/Smart-Management-System-Car-Wash/blob/main/docs/DEMO_DEPLOYMENT.md). `npm test` và `npm run build` được chạy tự động trong workflow Frontend CI.
+
 # 🎨 AutoWash Pro Frontend
 
 Ứng dụng giao diện khách hàng (Client Dashboard) và giao diện quản trị (Admin Dashboard) của dự án **AutoWash Pro**. Giao diện được thiết kế hiện đại, mượt mà, tối ưu hóa trải nghiệm đặt lịch, theo dõi điểm thưởng, xem cẩm nang chăm sóc xe và cấu hình hệ thống.

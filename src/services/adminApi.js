@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  import.meta.env.VITE_API_URL ||
-  "http://localhost:8080";
+import { normalizeApiBaseUrl } from '../shared/lib/api-url.js';
+
+const API_BASE_URL = normalizeApiBaseUrl(
+  import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL
+).replace(/\/api$/, '');
 
 const adminApiClient = axios.create({
   baseURL: API_BASE_URL,
