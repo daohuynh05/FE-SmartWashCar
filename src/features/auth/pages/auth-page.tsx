@@ -15,6 +15,11 @@ import { authStore } from '../store/auth-store'
 import type { RootState } from '@/app/store'
 import { authStart, loginSuccess, registerSuccess, authFailure, clearError } from '../store/auth-slice'
 
+const demoAccounts = [
+  { role: 'Customer', email: 'customer@example.invalid', password: 'CustomerDemo!2026' },
+  { role: 'Admin', email: 'admin@example.invalid', password: 'AdminDemo!2026' },
+] as const
+
 type AuthPageProps = {
   mode: 'login' | 'register'
 }
@@ -173,7 +178,47 @@ export function AuthPage({ mode }: AuthPageProps) {
   const displayError = localError || reduxError
 
   return (
-    <main className="grid min-h-screen place-items-center px-6 pb-18 pt-28">
+    <main className="grid min-h-screen place-items-center gap-6 px-6 pb-18 pt-28">
+      {isLogin && (
+        <aside
+          aria-labelledby="demo-accounts-title"
+          className="w-full max-w-[460px] justify-self-start rounded-xl border border-primary/20 bg-surface p-4 text-xs shadow-sm lg:fixed lg:left-4 lg:top-24 lg:z-20 lg:w-64"
+        >
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <h2 id="demo-accounts-title" className="font-semibold text-on-surface">Tài khoản dùng thử</h2>
+            <span className="rounded-full bg-primary/10 px-2 py-1 text-[10px] font-semibold text-primary">DEMO</span>
+          </div>
+          <div className="grid gap-3">
+            {demoAccounts.map((account) => (
+              <div key={account.role} className="rounded-lg bg-primary/5 p-3">
+                <p className="mb-1 font-semibold text-primary">{account.role}</p>
+                <dl className="grid gap-1 text-on-surface-variant">
+                  <div><dt className="sr-only">Email</dt><dd className="break-all font-mono select-text">{account.email}</dd></div>
+                  <div><dt className="sr-only">Mật khẩu</dt><dd className="break-all font-mono select-text">{account.password}</dd></div>
+                </dl>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="xs"
+                  className="mt-2 w-full cursor-pointer"
+                  aria-label={`Điền tài khoản ${account.role}`}
+                  disabled={isLoading}
+                  onClick={() => {
+                    setEmailOrPhone(account.email)
+                    setPassword(account.password)
+                    setLocalError(null)
+                    setSuccess(null)
+                    dispatch(clearError())
+                  }}
+                >
+                  Dùng tài khoản {account.role}
+                </Button>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 leading-5 text-on-surface-variant">Dữ liệu mẫu · Chọn tài khoản rồi nhấn Đăng nhập.</p>
+        </aside>
+      )}
       <section className="grid w-full max-w-[900px] justify-items-center gap-6">
         <Card className="w-full max-w-[460px]">
           <CardContent className="grid justify-items-center gap-6 px-6 pb-6 pt-12">
