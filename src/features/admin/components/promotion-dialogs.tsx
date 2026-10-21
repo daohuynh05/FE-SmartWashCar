@@ -1,3 +1,4 @@
+import { apiEndpoint } from '@/shared/lib/api-url.js'
 import { useState } from 'react'
 import { Send, X, Info } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
@@ -23,7 +24,7 @@ export function ConfirmSendModal({ onClose, promotion }: ConfirmSendModalProps) 
       // Lấy chính xác accessToken đồng bộ với cơ chế xác thực hệ thống của Khang
       const token = localStorage.getItem('jwt_token')
 
-      const res = await fetch(`http://localhost:8080/api/admin/promotions/${promotion.id}/send`, {
+      const res = await fetch(apiEndpoint(import.meta.env.VITE_API_BASE_URL, `admin/promotions/${promotion.id}/send`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -150,7 +151,7 @@ export function CreatePromotionDrawer({ onClose, open, onSuccess }: CreatePromot
         endsAt: formData.endsAt ? `${formData.endsAt}T23:59` : null
       }
 
-      const res = await fetch('http://localhost:8080/api/admin/promotions', {
+      const res = await fetch(apiEndpoint(import.meta.env.VITE_API_BASE_URL, 'admin/promotions'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,7 +2,9 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { authStore } from '@/features/auth/store/auth-store'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
+import { normalizeApiBaseUrl } from './api-url.js'
+
+const BASE_URL = normalizeApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
 
 export const authorizeAxios = axios.create({
   baseURL: BASE_URL,
